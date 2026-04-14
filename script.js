@@ -45,6 +45,12 @@ gsap.from(".site-header", {
   ease: "power3.out"
 });
 
+const heroIntro = gsap.timeline({ defaults: { ease: "power3.out" } });
+heroIntro
+  .from(".hero-content h1", { y: 80, opacity: 0, duration: 1.5 }, 0.1)
+  .from(".hero-content p", { y: 40, opacity: 0, duration: 1, delay: 0.3 }, 0.2)
+  .from(".btn", { scale: 0.8, opacity: 0, duration: 0.9, delay: 0.6 }, 0.3);
+
 gsap.utils.toArray(".reveal").forEach((el, i) => {
   gsap.to(el, {
     autoAlpha: 1,
