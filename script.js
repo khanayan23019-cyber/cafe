@@ -45,11 +45,24 @@ gsap.from(".site-header", {
   ease: "power3.out"
 });
 
-const heroIntro = gsap.timeline({ defaults: { ease: "power3.out" } });
-heroIntro
-  .from(".hero-content h1", { y: 80, opacity: 0, duration: 1.5 }, 0.1)
-  .from(".hero-content p", { y: 40, opacity: 0, duration: 1, delay: 0.3 }, 0.2)
-  .from(".btn", { scale: 0.8, opacity: 0, duration: 0.9, delay: 0.6 }, 0.3);
+gsap.from(".hero-content h1", {
+  y: 100,
+  opacity: 0,
+  duration: 1.5,
+  ease: "power4.out"
+});
+
+gsap.from(".hero-content p", {
+  y: 50,
+  opacity: 0,
+  delay: 0.3
+});
+
+gsap.from(".btn", {
+  scale: 0.8,
+  opacity: 0,
+  delay: 0.6
+});
 
 gsap.utils.toArray(".reveal").forEach((el, i) => {
   gsap.to(el, {
@@ -275,6 +288,52 @@ gsap.utils.toArray(".section").forEach((section) => {
   );
 });
 
+function initHeroParticles() {
+  const canvas = document.getElementById("particles");
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+
+  function setCanvasSize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  setCanvasSize();
+
+  const particles = [];
+  const particleCount = window.innerWidth < 700 ? 45 : 80;
+
+  for (let i = 0; i < particleCount; i += 1) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size: Math.random() * 2,
+      speedY: Math.random() * 1
+    });
+  }
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particles.forEach((p) => {
+      p.y += p.speedY;
+      if (p.y > canvas.height) p.y = 0;
+
+      ctx.beginPath();
+      ctx.fillStyle = "rgba(255,255,255,0.5)";
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    requestAnimationFrame(animateParticles);
+  }
+
+  animateParticles();
+  window.addEventListener("resize", setCanvasSize);
+}
+
 function initThreeHero() {
   const wrap = document.getElementById("three-canvas-wrap");
   if (!wrap || window.innerWidth < 700) return;
@@ -363,7 +422,19 @@ function initThreeHero() {
   });
 }
 
+initHeroParticles();
 initThreeHero();
+
+document.addEventListener("mousemove", (e) => {
+  const x = (e.clientX / window.innerWidth - 0.5) * 20;
+  const y = (e.clientY / window.innerHeight - 0.5) * 20;
+
+  gsap.to(".hero-content", {
+    x,
+    y,
+    duration: 0.5
+  });
+});
 
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener("click", (e) => {
