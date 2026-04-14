@@ -111,13 +111,34 @@ gsap.to(".parallax-bg", {
   }
 });
 
-gsap.to(".hero-content", {
-  yPercent: 15,
-  opacity: 0.7,
+gsap.to(".hero-video", {
+  scale: 1.3,
   scrollTrigger: {
     trigger: ".hero",
     start: "top top",
     end: "bottom top",
+    scrub: true
+  }
+});
+
+gsap.to(".hero-content", {
+  opacity: 0,
+  y: -100,
+  scrollTrigger: {
+    trigger: ".hero",
+    start: "top top",
+    end: "bottom top",
+    scrub: true
+  }
+});
+
+gsap.from(".about", {
+  opacity: 0,
+  y: 100,
+  scrollTrigger: {
+    trigger: ".about",
+    start: "top 80%",
+    end: "top 50%",
     scrub: true
   }
 });
@@ -335,90 +356,47 @@ function initHeroParticles() {
 }
 
 function initThreeHero() {
-  const wrap = document.getElementById("three-canvas-wrap");
-  if (!wrap || window.innerWidth < 700) return;
+  const canvas = document.getElementById("three-canvas");
+  if (!canvas || window.innerWidth < 700) return;
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, wrap.clientWidth / wrap.clientHeight, 0.1, 100);
-  camera.position.set(0, 0.5, 4);
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  camera.position.z = 5;
 
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.8));
-  renderer.setSize(wrap.clientWidth, wrap.clientHeight);
+  renderer.setSize(window.innerWidth, window.innerHeight, false);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
-  wrap.appendChild(renderer.domElement);
 
-  const ambient = new THREE.AmbientLight(0xf5e6c5, 0.8);
-  const key = new THREE.DirectionalLight(0xffd9a0, 1.2);
-  key.position.set(2, 3, 4);
-  scene.add(ambient, key);
+  const light = new THREE.PointLight(0xffffff, 1);
+  light.position.set(5, 5, 5);
+  scene.add(light);
 
-  const cupGroup = new THREE.Group();
-  const cup = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.85, 0.6, 1.2, 42),
-    new THREE.MeshStandardMaterial({
-      color: 0xeee2cf,
-      metalness: 0.2,
-      roughness: 0.34
-    })
-  );
-  cup.position.y = 0.2;
-
-  const coffee = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.72, 0.72, 0.08, 40),
-    new THREE.MeshStandardMaterial({
-      color: 0x2c150f,
-      roughness: 0.9
-    })
-  );
-  coffee.position.y = 0.75;
-
-  const plate = new THREE.Mesh(
-    new THREE.CylinderGeometry(1.5, 1.5, 0.1, 50),
-    new THREE.MeshStandardMaterial({
-      color: 0xd4b075,
-      metalness: 0.5,
-      roughness: 0.3
-    })
-  );
-  plate.position.y = -0.5;
-
-  const handle = new THREE.Mesh(
-    new THREE.TorusGeometry(0.35, 0.08, 16, 50, Math.PI * 1.6),
-    new THREE.MeshStandardMaterial({ color: 0xeee2cf, roughness: 0.34, metalness: 0.2 })
-  );
-  handle.position.set(0.82, 0.25, 0);
-  handle.rotation.z = Math.PI / 2;
-
-  cupGroup.add(cup, coffee, plate, handle);
-  scene.add(cupGroup);
-
-  const pointer = { x: 0, y: 0 };
-  window.addEventListener("mousemove", (e) => {
-    pointer.x = (e.clientX / window.innerWidth - 0.5) * 2;
-    pointer.y = (e.clientY / window.innerHeight - 0.5) * 2;
+  const geometry = new THREE.CylinderGeometry(1, 1, 2, 32);
+  const material = new THREE.MeshStandardMaterial({
+    color: 0x8b4513,
+    roughness: 0.5
   });
 
-  gsap.to(cupGroup.rotation, {
-    y: Math.PI * 2,
-    duration: 20,
-    repeat: -1,
-    ease: "none"
-  });
+  const coffee = new THREE.Mesh(geometry, material);
+  scene.add(coffee);
 
-  function render() {
-    cupGroup.rotation.x += (pointer.y * 0.12 - cupGroup.rotation.x) * 0.04;
-    cupGroup.rotation.z += (pointer.x * 0.08 - cupGroup.rotation.z) * 0.04;
-    cupGroup.position.y = Math.sin(performance.now() * 0.0008) * 0.06;
+  function animate3D() {
+    requestAnimationFrame(animate3D);
+    coffee.rotation.y += 0.01;
     renderer.render(scene, camera);
-    requestAnimationFrame(render);
   }
-  render();
+  animate3D();
+
+  document.addEventListener("mousemove", (e) => {
+    coffee.rotation.x = (e.clientY / window.innerHeight) * 2;
+    coffee.rotation.y = (e.clientX / window.innerWidth) * 2;
+  });
 
   window.addEventListener("resize", () => {
-    camera.aspect = wrap.clientWidth / wrap.clientHeight;
+    camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-    renderer.setSize(wrap.clientWidth, wrap.clientHeight);
+    renderer.setSize(window.innerWidth, window.innerHeight, false);
   });
 }
 
