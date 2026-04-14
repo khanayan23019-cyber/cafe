@@ -5,233 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Beyond 7 Cafe - An elevated luxury coffee experience."
+      content="Beyond 7 Cafe cinematic walkthrough experience."
     />
-    <title>Beyond 7 Cafe | Luxury Experience</title>
-
+    <title>Beyond 7 Cafe | Enter The Experience</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="loading-screen" id="loadingScreen" aria-hidden="true">
-      <div class="loader-mark">
-        <span class="loader-line"></span>
+    <div id="entry-loader">
+      <span></span>
+      <p>Preparing Beyond 7</p>
+    </div>
+
+    <section class="hero" id="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-plants"></div>
+      <div class="overlay"></div>
+      <div class="light-rays"></div>
+
+      <div class="door-wrap" aria-hidden="true">
+        <div class="door-shadow"></div>
+        <div class="door-panel"></div>
+      </div>
+
+      <div class="hero-content">
         <h1>Beyond 7 Cafe</h1>
+        <p class="intro-line">Step Into Experience</p>
+        <p class="next-line">Crafted Coffee. Timeless Ambience.</p>
       </div>
-    </div>
+    </section>
 
-    <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+    <section class="transition" id="transition">
+      <div class="fade-black"></div>
+    </section>
 
-    <header class="site-header glass">
-      <a href="#hero" class="brand">Beyond 7 Cafe</a>
-      <nav>
-        <a href="#about">About</a>
-        <a href="#menu">Menu</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#reserve">Reserve</a>
-      </nav>
-    </header>
-
-    <main>
-      <section class="hero section" id="hero">
-        <video autoplay muted loop playsinline class="hero-video">
-          <source src="assets/hero-video.mp4" type="video/mp4" />
-        </video>
-        <canvas id="three-canvas" aria-hidden="true"></canvas>
-        <div class="overlay hero-overlay"></div>
-        <canvas id="particles" aria-hidden="true"></canvas>
-        <div class="hero-content">
-          <p class="eyebrow reveal">Luxury Crafted Since Midnight</p>
-          <h1 class="reveal">Beyond 7 Cafe</h1>
-          <p class="subtext reveal">An Elevated Coffee Experience</p>
-          <a class="btn btn-premium magnetic" href="#reserve">Reserve Your Table</a>
-        </div>
-        <div class="scroll-indicator">Scroll to begin</div>
-      </section>
-
-      <section class="story section" id="story">
-        <div class="story-panel reveal-up">
-          <h2>Every Pour Tells a Story</h2>
-          <p>
-            From origin-traced beans to velvet ambient lighting, each element
-            of Beyond 7 Cafe is designed to slow time and heighten taste.
-          </p>
-        </div>
-        <div class="story-panel reveal-up">
-          <h2>Crafted for the Senses</h2>
-          <p>
-            Aromas, textures, and curated acoustics merge into an immersive
-            ritual worthy of connoisseurs.
-          </p>
-        </div>
-      </section>
-
-      <section class="about section" id="about">
-        <div class="about-media reveal-left">
-          <img
-            loading="lazy"
-            src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=1200&q=80"
-            alt="Luxury coffee setup"
-          />
-        </div>
-        <div class="about-copy reveal-right">
-          <p class="eyebrow">Brand Story</p>
-          <h2>Where midnight ambition meets morning ritual.</h2>
-          <p>
-            Beyond 7 Cafe was born from a desire to elevate coffee into a
-            cinematic moment. Every cup is a curated experience, balancing
-            precision, artistry, and understated luxury.
-          </p>
-        </div>
-      </section>
-
-      <section class="menu section" id="menu">
-        <div class="section-head">
-          <p class="eyebrow">Signature Menu</p>
-          <h2>Curated Indulgence</h2>
-          <div class="filters">
-            <button class="filter active" data-filter="all">All</button>
-            <button class="filter" data-filter="coffee">Coffee</button>
-            <button class="filter" data-filter="dessert">Dessert</button>
-          </div>
-        </div>
-        <div class="menu-grid">
-          <article class="menu-card glass" data-category="coffee">
-            <h3>Noir Espresso</h3>
-            <p>Dark chocolate notes, velvet crema.</p>
-            <span>₹490</span>
-          </article>
-          <article class="menu-card glass" data-category="coffee">
-            <h3>Golden Saffron Latte</h3>
-            <p>Single-origin espresso, saffron cream.</p>
-            <span>₹680</span>
-          </article>
-          <article class="menu-card glass" data-category="dessert">
-            <h3>Opera Hazelnut Torte</h3>
-            <p>Layered mousse, toasted praline crunch.</p>
-            <span>₹720</span>
-          </article>
-          <article class="menu-card glass" data-category="dessert">
-            <h3>Midnight Vanilla Bean</h3>
-            <p>Madagascar vanilla, caramel glass.</p>
-            <span>₹610</span>
-          </article>
-        </div>
-      </section>
-
-      <section class="gallery section" id="gallery">
-        <div class="section-head">
-          <p class="eyebrow">Immersive Gallery</p>
-          <h2>Captured Atmosphere</h2>
-        </div>
-        <div class="gallery-grid">
-          <img
-            loading="lazy"
-            class="gallery-item"
-            src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80"
-            alt="Coffee artistry"
-          />
-          <img
-            loading="lazy"
-            class="gallery-item"
-            src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=900&q=80"
-            alt="Cafe mood"
-          />
-          <img
-            loading="lazy"
-            class="gallery-item"
-            src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?auto=format&fit=crop&w=900&q=80"
-            alt="Latte closeup"
-          />
-          <img
-            loading="lazy"
-            class="gallery-item"
-            src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=80"
-            alt="Luxury seating"
-          />
-        </div>
-      </section>
-
-      <section class="experience section" id="experience">
-        <div class="parallax-bg"></div>
-        <div class="experience-copy">
-          <h2>Not just coffee. A composed emotion.</h2>
-          <p>
-            A luminous sanctuary for meaningful conversations, slow mornings,
-            and unforgettable evenings.
-          </p>
-        </div>
-      </section>
-
-      <section class="reservation section" id="reserve">
-        <div class="section-head">
-          <p class="eyebrow">Reservation</p>
-          <h2>Your Table Awaits</h2>
-        </div>
-        <form id="reservationForm" class="reserve-form glass" novalidate>
-          <label>
-            Name
-            <input type="text" name="name" required />
-          </label>
-          <label>
-            Date
-            <input type="date" name="date" required />
-          </label>
-          <label>
-            Time
-            <input type="time" name="time" required />
-          </label>
-          <label>
-            Guests
-            <input type="number" name="guests" min="1" max="12" required />
-          </label>
-          <button type="submit" class="btn-premium">Confirm Reservation</button>
-          <p class="form-message" id="formMessage" role="status"></p>
-        </form>
-      </section>
-    </main>
-
-    <footer class="site-footer section">
-      <div>
-        <h3>Beyond 7 Cafe</h3>
-        <p>22 Aurora Lane, New Delhi, India</p>
-        <p>+91 98765 43210</p>
+    <section class="world" id="world">
+      <canvas id="three-canvas"></canvas>
+      <div class="world-ui">
+        <h2>Beyond 7 Interior</h2>
+        <p>W A S D to walk · Mouse to look around</p>
+        <button id="enter3d">Enter Walkthrough</button>
       </div>
-      <div>
-        <h4>Social</h4>
-        <div class="socials">
-          <a href="#" aria-label="Instagram">Instagram</a>
-          <a href="#" aria-label="Facebook">Facebook</a>
-          <a href="#" aria-label="X">X</a>
-        </div>
-      </div>
-      <div>
-        <h4>Map</h4>
-        <div class="map-placeholder glass">Map placeholder</div>
-      </div>
-    </footer>
+    </section>
 
-    <div class="lightbox" id="lightbox" aria-hidden="true">
-      <button id="closeLightbox" aria-label="Close preview">&times;</button>
-      <img id="lightboxImg" alt="Expanded gallery preview" />
-    </div>
-
-    <audio id="softBell" preload="auto">
+    <audio id="door-audio" preload="auto">
       <source
-        src="https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg"
+        src="https://actions.google.com/sounds/v1/doors/wood_door_open_and_close.ogg"
         type="audio/ogg"
       />
     </audio>
 
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.min.js"></script>
-    <script src="script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>
